@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- 套件 -->
+<suite name="XX系统">
+    <!-- 测试集/模块 -->
+    <test name="YY模块">
+        <classes>
+            <class name="com.MTLearning.cases.RegisterCase"></class>
+
+        </classes>
+    </test>
+    <parameter name="browserType" value="Chrome"></parameter>
+</suite>
