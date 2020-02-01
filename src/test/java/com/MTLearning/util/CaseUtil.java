@@ -28,6 +28,7 @@ public class CaseUtil {
                 RegisterData cs = caseList.get(i);
                 for (int j = 0; j < cellName.length; j++) {
                     String methodName = "get" + cellName[j];
+                    //获取要反射的方法对象
                     Method method = RegisterData.class.getDeclaredMethod(methodName);
                     datas[i][j] = method.invoke(cs);
                 }
