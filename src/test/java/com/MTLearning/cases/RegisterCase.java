@@ -67,7 +67,9 @@ public class RegisterCase extends BaseCase {
      */
     @DataProvider
     public Object[][] datas() {
+        //将注册模块用例从Excel中全部读出来，以对象的形式存储在list中
         List<RegisterData> caseList = ExcelUtil.read("src/test/resources/register.xlsx", "用例", RegisterData.class);
+        //需要取出来的测试数据 的列名
         String[] cellName = {"IsNegative", "Mobilephone", "Password", "ConfirmPwd", "VerifyCode", "ErrorTips"};
         Object[][] datas = CaseUtil.datas(caseList, cellName);
         return datas;
