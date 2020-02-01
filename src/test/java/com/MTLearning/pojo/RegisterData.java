@@ -9,7 +9,7 @@ import lombok.Data;
  * @create: 2020-01-31 16:34
  **/
 @Data
-public class RegisterCases {
+public class RegisterData {
     private String isNegative; // 是否为正向用例
     private String desc; //用例描述
     private String mobilephone; //手机号
@@ -18,59 +18,4 @@ public class RegisterCases {
     private String verifyCode; //验证码
     private String errorTips; //错误提示期望值
 
-    public String getIsNegative() {
-        return isNegative;
-    }
-
-    public void setIsNegative(String isNegative) {
-        this.isNegative = isNegative;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public String getMobilephone() {
-        return mobilephone;
-    }
-
-    public void setMobilephone(String mobilephone) {
-        this.mobilephone = mobilephone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPwd() {
-        return confirmPwd;
-    }
-
-    public void setConfirmPwd(String confirmPwd) {
-        this.confirmPwd = confirmPwd;
-    }
-
-    public String getVerifyCode() {
-        return verifyCode;
-    }
-
-    public void setVerifyCode(String verifyCode) {
-        this.verifyCode = verifyCode;
-    }
-
-    public String getErrorTips() {
-        return errorTips;
-    }
-
-    public void setErrorTips(String errorTips) {
-        this.errorTips = errorTips;
-    }
 }
