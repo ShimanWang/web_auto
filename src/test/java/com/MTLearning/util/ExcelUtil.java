@@ -2,12 +2,13 @@ package com.MTLearning.util;
 
 import org.apache.poi.ss.usermodel.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: api_auto_learing
@@ -16,30 +17,19 @@ import java.util.Map;
  * @create: 2019-10-02 12:19
  **/
 public class ExcelUtil {
-    //一个用例编号对应一个行索引
-    public static Map<String, Integer> caseIdRownumMapping = new HashMap<>();
-    //一列的列名对应一个列索引
-    public static Map<String, Integer> cellNameCellnumMapping = new HashMap<>();
-    //将文件路径维护成一个常量
-    public static final String EXCEL_PATH = "src/test/resources/cases_raptor.xlsx";
-
-    //为了保证调用write方法之前，上述两个map中有数据，属于初始化的工作，放到静态代码块中
-    static {
-        loadRownumAndCellnumMapping();
-    }
-
 
     /**
+     * @param excelPath  excel的路径
      * @param sheetName
      * @param clazz     用字节码来接收
      * @param <T>
      * @return
      */
-    public static <T> List<T> read(String sheetName, Class<T> clazz) {
+    public static <T> List<T> read(String excelPath, String sheetName, Class<T> clazz) {
         InputStream inputStream = null;
         List<T> casesList = new ArrayList<>();
         try {
-            inputStream = new FileInputStream(new File(EXCEL_PATH));
+            inputStream = new FileInputStream(new File(excelPath));
             //1.通过工厂方法创建workbook对象（打开一个Excel就是一个工作簿）
             Workbook workbook = WorkbookFactory.create(inputStream);
             //2.获取表单对象sheet
@@ -125,55 +115,5 @@ public class ExcelUtil {
             }
         }
         return true;
-    }
-
-    /**
-     * 加载：
-     * 用例编号与行索引的映射
-     * 列名与列索引的映射
-     */
-    public static void loadRownumAndCellnumMapping() {
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(new File(EXCEL_PATH));
-            //1.通过工厂方法创建workbook对象（打开一个Excel就是一个工作簿）
-            Workbook workbook = WorkbookFactory.create(inputStream);
-            //2.获取表单对象sheet
-            Sheet sheet = workbook.getSheet("用例");//要回写的数据一定是写在"用例"表单中，故写死就可以
-            //共有多少行:拿到表单最后一行的行索引(0开始)
-            int rowNum = sheet.getLastRowNum();
-            //3.从第二行(行索引1)开始循环遍历每一行【处理用例编号与行索引的映射】
-            for (int i = 1; i <= rowNum; i++) {
-                Row row = sheet.getRow(i);
-                //每一行都去处理第一列
-                Cell firstCell = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                firstCell.setCellType(CellType.STRING);
-                String caseId = firstCell.getStringCellValue();
-                caseIdRownumMapping.put(caseId, i);
-            }
-            //4.处理列名与列索引的映射
-            Row titleRow = sheet.getRow(0);
-            //标题行有多少不为空的列(从1开始,比如共2列，cellNum为2)
-            int cellNum = titleRow.getLastCellNum();
-            //循环处理标题行的每一列
-            for (int j = 0; j < cellNum; j++) {
-                Cell cell = titleRow.getCell(j, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                cell.setCellType(CellType.STRING);
-                String cellName = cell.getStringCellValue();
-                cellName = cellName.substring(0, cellName.indexOf("("));
-                cellNameCellnumMapping.put(cellName, j);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }
