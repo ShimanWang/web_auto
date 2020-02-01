@@ -14,6 +14,7 @@ import java.util.List;
 public class CaseUtil {
 
     /**
+     * 从Excel中挑选出需要的数据，以 Object[][]的格式返回
      * @param caseList
      * @param cellName
      * @return
