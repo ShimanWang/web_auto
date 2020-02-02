@@ -13,7 +13,7 @@ import org.testng.annotations.Parameters;
  * @author: Mr.Wang
  * @create: 2020-01-14 19:37
  **/
-public class BaseCase {
+public class BaseCase implements Base {
     public static WebDriver webDriver = null;
 
     /**

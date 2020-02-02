@@ -1,12 +1,14 @@
 package com.MTLearning.cases;
 
 import com.MTLearning.pojo.RegisterData;
+import com.MTLearning.util.AssertUtil;
 import com.MTLearning.util.CaseUtil;
 import com.MTLearning.util.ExcelUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -35,9 +37,10 @@ public class RegisterCase extends BaseCase {
                      String password,
                      String confirmPwd,
                      String verifyCode,
-                     String expectResponse) {
+                     String expectResponse,
+                     ITestContext context) {
         //1.打开注册页面
-        String url = "http://test.lemonban.com/lmcanon_web_auto/mng/register.html";
+        String url = context.getSuite().getParameter("registerUrl");
         webDriver.get(url);
         //定位账号输入框
         webDriver.findElement(By.id("mobilephone")).sendKeys(mobilephone);
@@ -56,24 +59,12 @@ public class RegisterCase extends BaseCase {
         //页面上的实际响应结果
         String response = webDriver.findElement(By.className("tips")).getText();
         //断言
-        //只有反向用例需要断言
+        //反向用例断言
         if (isNegative.equals("0")) {
             Assert.assertEquals(response, expectResponse);
         } else {
-            //设置一个变量，标记页面是否跳转到登录页面
-            boolean isLoginPage = true;
-
-            //注册成功后跳转到登录页面,跳转过去是需要时间的
-            WebDriverWait wait = new WebDriverWait(webDriver, 5);
-            //如果5s后还是没有跳转，会抛timeout异常
-            try {
-                wait.until(ExpectedConditions.urlContains("login.html"));
-
-            }catch (Exception e) {
-                isLoginPage = false;
-                e.printStackTrace();
-            }
-            Assert.assertTrue(isLoginPage);
+            //正向用例的断言
+            AssertUtil.assertUrlContains("login.html");
         }
     }
 
