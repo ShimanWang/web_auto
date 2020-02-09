@@ -38,29 +38,32 @@ public class LoginCase extends BaseCase {
         //1.访问登录页面
         String url = context.getSuite().getParameter("loginUrl");
         webDriver.get(url);
-        //2.输入手机号
-        webDriver.findElement(By.id("mobilephone")).sendKeys(mobilephone);
+        //2.根据页面关键字和元素关键字,输入手机号
+        getElement("loginPage","mobileInput").sendKeys(mobilephone);
         //3.输入密码
-        webDriver.findElement(By.id("password")).sendKeys(password);
+        getElement("loginPage","pwdInput").sendKeys(password);
         //4.点击登录按钮
-        webDriver.findElement(By.id("login")).click();
+        getElement("loginPage","loginButton").click();
 
         //5.进行断言
         //反向用例需要实际响应结果与期望响应结果比较
         if (isNegative.equals("0")) {
             //6.拿到页面实际响应结果
             //当输入错误的账号密码时，后端查询需要时间，前端返回结果慢，所以在这里加个延时
-            boolean isTips = true;
-            WebDriverWait wait = new WebDriverWait(webDriver, 5);
-            try {
-                WebElement tipsElement = webDriver.findElement(By.className("tips"));
-                //判断tips元素中的text是否包含了预期的字符串,若包含，则用例通过，否则会抛Timeout异常
-                wait.until(ExpectedConditions.textToBePresentInElement(tipsElement, expectResponse));
-            } catch (Exception e) {
-                isTips = false;
-                e.printStackTrace();
-            }
-            Assert.assertTrue(isTips);
+//            boolean isTips = true;
+//            WebDriverWait wait = new WebDriverWait(webDriver, 5);
+//            try {
+//                WebElement tipsElement = getElement("loginPage","tipsText");
+//                //判断tips元素中的text是否包含了预期的字符串,若包含，则用例通过，否则会抛Timeout异常
+//                wait.until(ExpectedConditions.textToBePresentInElement(tipsElement, expectResponse));
+//            } catch (Exception e) {
+//                isTips = false;
+//                e.printStackTrace();
+//            }
+//            Assert.assertTrue(isTips);
+            WebElement tipsElement = getElement("loginPage","tipsText");
+            String act = tipsElement.getText();
+            Assert.assertEquals(act,expectResponse);
         } else {
             //正向用例的断言
             AssertUtil.assertUrlContains("index.html");

@@ -5,8 +5,6 @@ import com.MTLearning.util.AssertUtil;
 import com.MTLearning.util.CaseUtil;
 import com.MTLearning.util.ExcelUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
@@ -42,22 +40,22 @@ public class RegisterCase extends BaseCase {
         //1.打开注册页面
         String url = context.getSuite().getParameter("registerUrl");
         webDriver.get(url);
-        //定位账号输入框
-        webDriver.findElement(By.id("mobilephone")).sendKeys(mobilephone);
-        //定位密码输入框
-        webDriver.findElement(By.name("password")).sendKeys(password);
-        //定位再次输入密码框
-        webDriver.findElement(By.id("pwdconfirm")).sendKeys(confirmPwd);
+        //根据页面关键字和元素关键字,定位账号输入框
+        getElement("registerPage","mobileInput").sendKeys(mobilephone);
+        //根据页面关键字和元素关键字,定位密码输入框
+        getElement("registerPage","pwdInput").sendKeys(password);
+        //根据页面关键字和元素关键字,定位再次输入密码框
+        getElement("registerPage","confirmPwdInput").sendKeys(confirmPwd);
         //正向用例的验证码从cookie中取，开发留的后门
         if (isNegative.equals("1")) {
             verifyCode = webDriver.manage().getCookieNamed("verifycode").getValue();
         }
-        //定位验证码输入框
-        webDriver.findElement(By.id("verifycode")).sendKeys(verifyCode);
-        //点击注册按钮
-        webDriver.findElement(By.id("signup-button")).click();
+        //根据页面关键字和元素关键字,定位验证码输入框
+        getElement("registerPage","verifyCodeInput").sendKeys(verifyCode);
+        //根据页面关键字和元素关键字,点击注册按钮
+        getElement("registerPage","signUpButton").click();
         //页面上的实际响应结果
-        String response = webDriver.findElement(By.className("tips")).getText();
+        String response = getElement("registerPage","tipsText").getText();
         //断言
         //反向用例断言
         if (isNegative.equals("0")) {
