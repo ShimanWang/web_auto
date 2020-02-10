@@ -4,7 +4,6 @@ import com.MTLearning.pojo.RegisterData;
 import com.MTLearning.util.AssertUtil;
 import com.MTLearning.util.CaseUtil;
 import com.MTLearning.util.ExcelUtil;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
