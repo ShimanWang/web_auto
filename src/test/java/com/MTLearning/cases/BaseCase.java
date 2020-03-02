@@ -15,6 +15,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -85,7 +86,7 @@ public class BaseCase implements Base {
                             e.printStackTrace();
                             String by = uiElement.getBy();
                             String value = uiElement.getValue();
-                            logger.info(pageKeyword+"页面的"+uiElementKeyWord+"定位不到；定位元素的方式：by"+by+"value为"+value);
+                            logger.info(pageKeyword + "页面的" + uiElementKeyWord + "定位不到；定位元素的方式：by" + by + "value为" + value);
                         }
                     }
                 }
@@ -101,16 +102,14 @@ public class BaseCase implements Base {
      * @return
      */
     public WebElement locateWebElement(UIElement uiElement) throws Exception {
-        String by = uiElement.getBy();//也就是methodname
+        String by = uiElement.getBy();//也就是methodname id、className...
         String value = uiElement.getValue();
-        By locator = null;
-        if (by.equals("id")) {
-            locator = By.id(value);
-        } else if (by.equals("name")) {
-            locator = By.name(value);
-        } else if (by.equals("className")) {
-            locator = By.className(value);
-        }
+        //要反射调用的方法名
+        String methodName = by;
+        //获取要反射调用的方法
+        Method method = By.class.getDeclaredMethod(methodName, String.class);
+        //调用静态的方法，对象这里传null
+        By locator = (By) method.invoke(null, value);//By locator = By.id("123");
         WebDriverWait wait = new WebDriverWait(webDriver, 5);
         //等到locator可见
         WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
