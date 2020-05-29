@@ -1,8 +1,5 @@
 package com.MTLearning.util;
 
-import com.MTLearning.pojo.RegisterData;
-import org.apache.poi.ss.formula.functions.T;
-
 import java.lang.reflect.Method;
 import java.util.List;
 

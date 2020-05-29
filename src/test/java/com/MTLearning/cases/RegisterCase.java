@@ -38,23 +38,24 @@ public class RegisterCase extends BaseCase {
                      ITestContext context) {
         //1.打开注册页面
         String url = context.getSuite().getParameter("registerUrl");
-        webDriver.get(url);
+        access(url);
         //根据页面关键字和元素关键字,定位账号输入框
-        getElement("registerPage","mobileInput").sendKeys(mobilephone);
+        //getElement("registerPage","mobileInput").sendKeys(mobilephone);//更改为行为驱动
+        input("registerPage", "mobileInput", mobilephone);
         //根据页面关键字和元素关键字,定位密码输入框
-        getElement("registerPage","pwdInput").sendKeys(password);
+        input("registerPage", "pwdInput", password);
         //根据页面关键字和元素关键字,定位再次输入密码框
-        getElement("registerPage","confirmPwdInput").sendKeys(confirmPwd);
+        input("registerPage", "confirmPwdInput", confirmPwd);
         //正向用例的验证码从cookie中取，开发留的后门
         if (isNegative.equals("1")) {
             verifyCode = webDriver.manage().getCookieNamed("verifycode").getValue();
         }
         //根据页面关键字和元素关键字,定位验证码输入框
-        getElement("registerPage","verifyCodeInput").sendKeys(verifyCode);
+        input("registerPage", "verifyCodeInput", verifyCode);
         //根据页面关键字和元素关键字,点击注册按钮
-        getElement("registerPage","signUpButton").click();
+        click("registerPage", "signUpButton");
         //页面上的实际响应结果
-        String response = getElement("registerPage","tipsText").getText();
+        String response = getText("registerPage", "tipsText");
         //断言
         //反向用例断言
         if (isNegative.equals("0")) {

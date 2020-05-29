@@ -115,4 +115,61 @@ public class BaseCase implements Base {
         WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return webElement;
     }
+
+    /**
+     * 行为驱动，访问某URL
+     *
+     * @param url
+     */
+    public void access(String url) {
+        webDriver.get(url);
+    }
+
+    /**
+     * 行为驱动，在输入框中输入XXX
+     *
+     * @param pageKeyWord
+     * @param uiElementKeyWord
+     * @param value
+     */
+    public void input(String pageKeyWord, String uiElementKeyWord, String value) {
+        WebElement webElement = getElement(pageKeyWord, uiElementKeyWord);
+        if (webElement == null) {
+            logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素");
+        } else {
+            webElement.sendKeys(value);
+        }
+    }
+
+
+    /**
+     * 行为驱动，点击按钮
+     *
+     * @param pageKeyWord
+     * @param uiElementKeyWord
+     */
+    public void click(String pageKeyWord, String uiElementKeyWord) {
+        WebElement webElement = getElement(pageKeyWord, uiElementKeyWord);
+        if (webElement == null) {
+            logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素");
+        } else {
+            webElement.click();
+        }
+    }
+
+    /**
+     * 行为驱动，获取页面提示信息
+     * @param pageKeyWord
+     * @param uiElementKeyWord
+     * @return
+     */
+    public String getText(String pageKeyWord, String uiElementKeyWord){
+        WebElement webElement = getElement(pageKeyWord,uiElementKeyWord);
+        if (webElement == null) {
+            logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素");
+        } else {
+            return webElement.getText();
+        }
+        return null;
+    }
 }

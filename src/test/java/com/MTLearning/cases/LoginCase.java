@@ -33,13 +33,13 @@ public class LoginCase extends BaseCase {
                      ITestContext context) {
         //1.访问登录页面
         String url = context.getSuite().getParameter("loginUrl");
-        webDriver.get(url);
+        access(url);
         //2.根据页面关键字和元素关键字,输入手机号
-        getElement("loginPage","mobileInput").sendKeys(mobilephone);
+        input("loginPage", "mobileInput", mobilephone);
         //3.输入密码
-        getElement("loginPage","pwdInput").sendKeys(password);
+        input("loginPage", "pwdInput", password);
         //4.点击登录按钮
-        getElement("loginPage","loginButton").click();
+        click("loginPage", "loginButton");
 
         //5.进行断言
         //反向用例需要实际响应结果与期望响应结果比较
@@ -57,9 +57,8 @@ public class LoginCase extends BaseCase {
 //                e.printStackTrace();
 //            }
 //            Assert.assertTrue(isTips);
-            WebElement tipsElement = getElement("loginPage","tipsText");
-            String act = tipsElement.getText();
-            Assert.assertEquals(act,expectResponse);
+            String act = getText("loginPage", "tipsText");
+            Assert.assertEquals(act, expectResponse);
         } else {
             //正向用例的断言
             AssertUtil.assertUrlContains("index.html");
