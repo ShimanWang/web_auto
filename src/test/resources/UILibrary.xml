@@ -9,7 +9,6 @@
         <uiElement keyword="verifyCodeInput" by="id" value="verifycode"></uiElement>
         <uiElement keyword="signUpButton" by="id" value="signup-button"></uiElement>
         <uiElement keyword="tipsText" by="className" value="tips"></uiElement>
-
     </page>
 
     <!-- 一个page元素代表一个登陆页面 -->
@@ -18,7 +17,28 @@
         <uiElement keyword="pwdInput" by="id" value="password"></uiElement>
         <uiElement keyword="loginButton" by="id" value="login"></uiElement>
         <uiElement keyword="tipsText" by="className" value="tips"></uiElement>
+    </page>
 
+    <!-- 首页页面 -->
+    <page keyword="home">
+        <uiElement keyword="teacherInformationManagement" by="id" value="teacher-manage"></uiElement>
+        <uiElement keyword="teacherInformation" by="partialLinkText" value="老师信息"></uiElement>
+        <uiElement keyword="addTeacherIframe" by="xpath" value="//iframe[@src='teacher-list.html']"></uiElement>
+    </page>
+
+    <!-- 老师列表页面 -->
+    <page keyword="teacherList">
+        <uiElement keyword="addTeacherButton" by="partialLinkText" value="添加老师"></uiElement>
+        <uiElement keyword="addTeacherIframe" by="xpath" value="//iframe[@src='./teacher-edit.html']"></uiElement>
+    </page>
+
+    <!-- 添加老师页面 -->
+    <page keyword="teacherAdd">
+        <uiElement keyword="nickName" by="id" value="nickname"></uiElement>
+        <uiElement keyword="mobilephone" by="id" value="mobilephone"></uiElement>
+        <uiElement keyword="qq" by="id" value="qq"></uiElement>
+        <uiElement keyword="type" by="id" value="type"></uiElement>
+        <uiElement keyword="saveButton" by="id" value="save"></uiElement>
     </page>
 
 </pages>

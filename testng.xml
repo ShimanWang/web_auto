@@ -3,11 +3,11 @@
 <!-- 套件 -->
 <suite name="XX系统">
     <!-- 测试集/模块 -->
-    <test name="注册模块">
-        <classes>
-            <class name="com.MTLearning.cases.RegisterCase"></class>
-        </classes>
-    </test>
+<!--    <test name="注册模块">-->
+<!--        <classes>-->
+<!--            <class name="com.MTLearning.cases.RegisterCase"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
     <test name="登录模块">
         <classes>
@@ -15,7 +15,14 @@
         </classes>
     </test>
 
+    <test name="添加老师信息模块">
+        <classes>
+            <class name="com.MTLearning.cases.TeacherCase"></class>
+        </classes>
+    </test>
+
     <parameter name="browserType" value="Chrome"></parameter>
     <parameter name="registerUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/register.html"></parameter>
     <parameter name="loginUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/login.html"></parameter>
+    <parameter name="homeUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/index.html"></parameter>
 </suite>

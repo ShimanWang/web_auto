@@ -69,7 +69,7 @@ public class LoginCase extends BaseCase {
     @DataProvider
     public Object[][] datas() {
         //1.将登录模块用例从Excel中全部读出来，以对象的形式存储在list中
-        List<LoginData> caseList = ExcelUtil.read("src/test/resources/login.xlsx", "用例", LoginData.class);
+        List<LoginData> caseList = ExcelUtil.read("src/test/resources/testcases/login.xlsx", "用例", LoginData.class);
         //需要取出来的测试数据 的列名
         String[] cellName = {"IsNegative", "Mobilephone", "Password", "ErrorTips"};
         Object[][] data = CaseUtil.datas(caseList, cellName);

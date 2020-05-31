@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -171,5 +172,37 @@ public class BaseCase implements Base {
             return webElement.getText();
         }
         return null;
+    }
+
+    /**
+     * 行为驱动，iframe切换
+     *
+     * @param pageKeyWord
+     * @param uiElementKeyWord
+     */
+    public void switchToIframe(String pageKeyWord, String uiElementKeyWord){
+        WebElement webElement = getElement(pageKeyWord,uiElementKeyWord);
+        if (webElement == null) {
+            logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素,未能切换iframe");
+        } else {
+            webDriver.switchTo().frame(webElement);
+        }
+    }
+
+    /**
+     * 行为驱动，根据下拉框的文本值，选中下拉框中对应的选项
+     *
+     * @param pageKeyWord
+     * @param uiElementKeyWord
+     * @param value
+     */
+    public void selectByText(String pageKeyWord, String uiElementKeyWord,String value){
+        WebElement webElement = getElement(pageKeyWord,uiElementKeyWord);
+        if (webElement == null) {
+            logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素,未能切换定位到select下拉框");
+        } else {
+            Select select = new Select(webElement);
+            select.selectByVisibleText(value);
+        }
     }
 }
