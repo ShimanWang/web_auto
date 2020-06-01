@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- 套件 -->
+<suite name="后台管理系统">
+    <!-- 测试集/模块 -->
+    <test name="注册模块">
+        <classes>
+            <class name="com.MTLearning.cases.RegisterCase"></class>
+        </classes>
+    </test>
+
+<!--    <test name="登录模块">-->
+<!--        <classes>-->
+<!--            <class name="com.MTLearning.cases.LoginCase"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="添加老师信息模块">-->
+<!--        <classes>-->
+<!--            <class name="com.MTLearning.cases.TeacherCase"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <!-- 配置监听器，不指定监听器的话，就会生成testng默认的报表 -->
+    <listeners>
+        <!-- 指定报表生成类 -->
+        <listener class-name="org.uncommons.reportng.HTMLReporter"></listener>
+        <!-- 自定义监听器，用来监听用例执行状态 -->
+        <listener class-name="com.MTLearning.listener.CustomListener"></listener>
+    </listeners>
+
+    <parameter name="browserType" value="Chrome"></parameter>
+    <parameter name="registerUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/register.html"></parameter>
+    <parameter name="loginUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/login.html"></parameter>
+    <parameter name="homeUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/index.html"></parameter>
+</suite>
