@@ -2,6 +2,7 @@ package com.MTLearning.util;
 
 import com.MTLearning.pojo.PageObject;
 import com.MTLearning.pojo.UIElement;
+import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -18,11 +19,13 @@ import java.util.List;
  * @create: 2020-02-08 14:02
  **/
 public class XMLLoadUtil {
+    public static Logger logger = Logger.getLogger(XMLLoadUtil.class);
     //这个List里面放所有page对象，后面需要经常从里面取数据，那就是作为共享的定义为static
     public static List<PageObject> pageObjectList = new ArrayList<>();
 
     //为了保证直接调用pageObjectList的时候List中有数据，将load方法放到静态代码块中，保证类加载的时候就执行一次load方法，属于初始化的工作
     static {
+        logger.info("预加载UILibrary.xml文件，并将数据封装成对象");
         load();
     }
 

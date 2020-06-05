@@ -14,6 +14,7 @@
     <url>http://www.example.com</url>
 
     <properties>
+        <!--防止Jenkins日志中出现乱码-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -108,9 +109,11 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.1</version>
                     <configuration>
+                        <!-- 设置HTML代码不转义 -->
                         <systemPropertyVariables>
                             <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
                         </systemPropertyVariables>
+                        <!-- mvn test 命令指定要执行的测试套件 -->
                         <suiteXmlFiles>
                             <suiteXmlFile>src/test/resources/testNGxml/${xmlFileName}</suiteXmlFile>
                         </suiteXmlFiles>

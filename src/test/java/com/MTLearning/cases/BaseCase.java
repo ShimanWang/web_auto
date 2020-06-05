@@ -37,6 +37,8 @@ public class BaseCase implements Base {
     @BeforeSuite
     @Parameters(value = {"browserType"})
     public void init(String browserType) {
+        logger.info("****************开始执行测试套件*******************");
+        logger.info("本次测试的浏览器为：" + browserType);
         //选择启动浏览器的类型
         if (browserType.equalsIgnoreCase("firefox")) {
             //1.启动浏览器驱动前需要指定驱动文件的路径
@@ -60,6 +62,7 @@ public class BaseCase implements Base {
     public void end() throws InterruptedException {
         Thread.sleep(3000);
         webDriver.quit();
+        logger.info("****************测试套件执行完毕*******************");
     }
 
     /**
@@ -160,12 +163,13 @@ public class BaseCase implements Base {
 
     /**
      * 行为驱动，获取页面提示信息
+     *
      * @param pageKeyWord
      * @param uiElementKeyWord
      * @return
      */
-    public String getText(String pageKeyWord, String uiElementKeyWord){
-        WebElement webElement = getElement(pageKeyWord,uiElementKeyWord);
+    public String getText(String pageKeyWord, String uiElementKeyWord) {
+        WebElement webElement = getElement(pageKeyWord, uiElementKeyWord);
         if (webElement == null) {
             logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素");
         } else {
@@ -180,8 +184,8 @@ public class BaseCase implements Base {
      * @param pageKeyWord
      * @param uiElementKeyWord
      */
-    public void switchToIframe(String pageKeyWord, String uiElementKeyWord){
-        WebElement webElement = getElement(pageKeyWord,uiElementKeyWord);
+    public void switchToIframe(String pageKeyWord, String uiElementKeyWord) {
+        WebElement webElement = getElement(pageKeyWord, uiElementKeyWord);
         if (webElement == null) {
             logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素,未能切换iframe");
         } else {
@@ -196,8 +200,8 @@ public class BaseCase implements Base {
      * @param uiElementKeyWord
      * @param value
      */
-    public void selectByText(String pageKeyWord, String uiElementKeyWord,String value){
-        WebElement webElement = getElement(pageKeyWord,uiElementKeyWord);
+    public void selectByText(String pageKeyWord, String uiElementKeyWord, String value) {
+        WebElement webElement = getElement(pageKeyWord, uiElementKeyWord);
         if (webElement == null) {
             logger.info("未定位到【" + pageKeyWord + "】页面的【" + uiElementKeyWord + "】元素,未能切换定位到select下拉框");
         } else {
