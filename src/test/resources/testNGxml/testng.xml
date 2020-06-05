@@ -33,4 +33,6 @@
     <parameter name="registerUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/register.html"></parameter>
     <parameter name="loginUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/login.html"></parameter>
     <parameter name="homeUrl" value="http://test.lemonban.com/lmcanon_web_auto/mng/index.html"></parameter>
+    <parameter name="documentRoot" value="/Users/shimanwang/.jenkins/workspace/web_auto/target/surefire-reports"></parameter>
+    <parameter name="apacheHost" value="http://127.0.0.1"></parameter>
 </suite>

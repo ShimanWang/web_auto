@@ -23,8 +23,9 @@ public class CustomListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        //文档根路径
-        String documentRoot = "/Users/shimanwang/IdeaProjects/web_auto_learning/target/surefire-reports";
+        //文档根路径(从testng.xml中取出文档根路径)
+//        String documentRoot = "/Users/shimanwang/IdeaProjects/web_auto_learning/target/surefire-reports";
+        String documentRoot = tr.getTestContext().getSuite().getParameter("documentRoot");
         //存放截图的文件夹
         String screenShotDir = "screenshot";
         //拿到文件夹的名字（按模块划分的模块）
@@ -39,7 +40,7 @@ public class CustomListener extends TestListenerAdapter {
         //将截图存入最终路径中
         File screenshotFile = ScreenshotUtil.saveScreenshot(imagePath);
         //将本地路径替换成一个HTTP的URL地址（将文档根路径替换成ip:端口）http://127.0.0.1/screenshot/注册模块/2020-06-01%2021:55:53/1591019753497.jpg
-        String imageUrl = getAccessPath(imagePath);
+        String imageUrl = getAccessPath(imagePath, tr);
         //将截图写入测试报告中
         Reporter.log("<img src=\"" + imageUrl + "\" width=100 height=100 /><br/>\n" +
                 "<a href=\"" + imageUrl + "\" target=\"_blank\">点击查看大图</a>");
@@ -51,9 +52,11 @@ public class CustomListener extends TestListenerAdapter {
      * @param imagePath /Users/shimanwang/IdeaProjects/web_auto_learning/target/surefire-reports/screenshot/注册模块/2020-06-01 21:55:53/1591019753497.jpg
      * @return http://127.0.0.1/screenshot/注册模块/2020-06-01%2021:55:53/1591019753497.jpg
      */
-    public static String getAccessPath(String imagePath) {
+    public static String getAccessPath(String imagePath, ITestResult tr) {
         String[] screenshots = imagePath.split("screenshot");
-        String host = " http://127.0.0.1";
+        //(从testng.xml中取出部署了Apache的host路径)
+        //String host = " http://127.0.0.1";
+        String host = tr.getTestContext().getSuite().getParameter("apacheHost");
         String imageUrl = host + File.separator + "screenshot" + screenshots[1];
         System.out.println(imageUrl);
         return imageUrl;
